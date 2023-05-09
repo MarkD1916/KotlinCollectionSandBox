@@ -11,7 +11,6 @@ interface Queue<T> {
     //Remove element at the front of queue
     fun dequeue(): T?
     val count: Int
-        get
     val isEmpty: Boolean
         get() = count == 0
 
