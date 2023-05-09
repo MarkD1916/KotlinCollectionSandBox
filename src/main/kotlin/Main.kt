@@ -1,5 +1,5 @@
-import linked_list.Examples
+import stack.Examples
 
 fun main(args: Array<String>) {
-    Examples().retainAllDemo()
+    Examples().createStackDemo()
 }

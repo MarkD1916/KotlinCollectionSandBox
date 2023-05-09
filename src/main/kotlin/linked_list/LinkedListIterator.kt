@@ -2,7 +2,7 @@ package linked_list
 
 class LinkedListIterator<T>(private val list: LinkedList<T>) : Iterator<T>, MutableIterator<T> {
 
-    var index = 0
+    private var index = 0
 
     override fun hasNext(): Boolean = index < list.size
 
