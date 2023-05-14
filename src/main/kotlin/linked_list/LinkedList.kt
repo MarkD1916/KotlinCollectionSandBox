@@ -1,5 +1,7 @@
 package linked_list
 
+import sun.text.normalizer.UTF16.append
+
 class LinkedList<T> : Iterable<T>, Collection<T>, MutableIterable<T>, MutableCollection<T> {
 
     var head: Node<T>? = null
@@ -106,6 +108,11 @@ class LinkedList<T> : Iterable<T>, Collection<T>, MutableIterable<T>, MutableCol
         size++
     }
 
+    fun <T : Comparable<T>> append(result: LinkedList<T>, node: Node<T>): Node<T>? {
+        result.append(node.value)
+        return node.next
+    }
+
     //Find node by index
     fun nodeAt(index: Int): Node<T>? {
         var currentNode = head
@@ -183,6 +190,34 @@ class LinkedList<T> : Iterable<T>, Collection<T>, MutableIterable<T>, MutableCol
     }
 
 }
+
+fun <T : Comparable<T>> LinkedList<T>.mergeSorted(
+    otherList: LinkedList<T>
+): LinkedList<T> {
+    if (this.isEmpty()) return otherList
+    if (otherList.isEmpty()) return this
+    val result = LinkedList<T>()
+    var left = nodeAt(0)
+    var right = otherList.nodeAt(0)
+
+    while (left != null && right != null) {
+        if (left.value < right.value) {
+            left = append(result, left)
+        } else {
+            right = append(result, right)
+        }
+    }
+
+    while (left != null) {
+        left = append(result, left)
+    }
+
+    while (right != null) {
+        right = append(result, right)
+    }
+    return result
+}
+
 
 data class Node<T>(var value: T, var next: Node<T>? = null) {
     override fun toString(): String = if (next != null) {
@@ -315,6 +350,24 @@ class Examples {
         list.retainAll(list_2)
         println(list)
 
+    }
+
+    fun mergeExample() {
+        val list = LinkedList<Int>()
+        list.add(1)
+        list.add(2)
+        list.add(3)
+        list.add(4)
+        list.add(5)
+        val other = LinkedList<Int>()
+        other.add(-1)
+        other.add(0)
+        other.add(2)
+        other.add(2)
+        other.add(7)
+        println("Left: $list")
+        println("Right: $other")
+        println("Merged: ${list.mergeSorted(other)}")
     }
 
     companion object {

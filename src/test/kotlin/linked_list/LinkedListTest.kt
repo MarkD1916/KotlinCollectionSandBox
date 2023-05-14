@@ -341,4 +341,26 @@ internal class LinkedListTest {
         }
     }
 
+    @Test
+    fun merge() {
+        val inputList = LinkedList<Int>()
+        inputList.apply {
+            append(1)
+            append(2)
+            append(3)
+        }
+        val newSortedList = LinkedList<Int>()
+        newSortedList.apply {
+            append(-1)
+            append(0)
+            append(4)
+        }
+
+        val expected = listOf(-1, 0, 1, 2, 3, 4)
+        val actual = inputList.mergeSorted(newSortedList)
+        actual.forEachIndexed { index, value ->
+            assertEquals(expected[index], value)
+        }
+    }
+
 }

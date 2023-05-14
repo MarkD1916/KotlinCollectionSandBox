@@ -1,6 +1,5 @@
-import trees.Example
+import linked_list.Examples
 
 fun main(args: Array<String>) {
-    //Example().eachDepthFirstDemo()
-    Example().eachLevelOrderDemo()
+    Examples().mergeExample()
 }
